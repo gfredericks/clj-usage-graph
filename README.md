@@ -11,7 +11,7 @@ Add `[com.gfredericks/clj-usage-graph "0.1.0"]` to your deps somehow
 and then:
 
 ```
-find -type f src | \
+find src -type f | \
 xargs lein run -m com.gfredericks.clj-usage-graph/generate | \
 dot -Tsvg -o g.svg
 ```
