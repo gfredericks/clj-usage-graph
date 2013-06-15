@@ -48,10 +48,14 @@
             [v (intersection v-set top-level-set)]))))
 
 (defn munge
+  "Transform characters that graphviz won't want in node identifiers."
   [s]
-  (-> s
-      (s/replace #"[-\.]" "___")
-      (s/replace "?" "__QMARK__")))
+  (s/replace s #"[^A-Za-z0-9_]"
+             (fn [s']
+               (-> s'
+                   first
+                   int
+                   (->> (format "_%d_"))))))
 
 (defn generate
   "Given files to analyze, prints a graph file for DOT."
