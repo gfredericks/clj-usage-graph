@@ -8,7 +8,9 @@ A Clojure library that emits usage diagrams for your project.
    files you give it, so beware of any top-level side-effects.
 2. At the moment it seems to take a long time on modestly-sized
    projects.  I have no idea why.
-3. It's not totally correct. Of course.
+3. It doesn't reflect macro usage at all. Any macros in your project
+   will appear unused, as only the expanded code is analyzed.
+4. It's not totally correct. Of course.
 
 ## Usage
 
