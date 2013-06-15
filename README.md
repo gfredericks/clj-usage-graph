@@ -2,6 +2,14 @@
 
 A Clojure library that emits usage diagrams for your project.
 
+## Caveats
+
+1. It will eval (because `jvm.tools.analyzer` does) all the source
+   files you give it, so beware of any top-level side-effects.
+2. At the moment it seems to take a long time on modestly-sized
+   projects.  I have no idea why.
+3. It's not totally correct. Of course.
+
 ## Usage
 
 Make sure you have graphviz installed and thus the `dot` command
