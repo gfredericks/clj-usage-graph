@@ -17,7 +17,7 @@ A Clojure library that emits usage diagrams for your project.
 Make sure you have graphviz installed and thus the `dot` command
 available.
 
-Add `[com.gfredericks/clj-usage-graph "0.1.0"]` to your deps somehow
+Add `[com.gfredericks/clj-usage-graph "0.1.1"]` to your deps somehow
 and then:
 
 ```
