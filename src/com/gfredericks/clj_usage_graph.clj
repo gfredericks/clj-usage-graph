@@ -3,13 +3,28 @@
   (:require [clojure.java.io :as io]
             [clojure.set :refer [intersection]]
             [clojure.string :as s]
-            [clojure.tools.analyzer :refer [analyze-form]]))
+            [clojure.tools.analyzer :as a]))
+
+(defn filtered-tree-seq
+  "Like clojure.core/tree-seq but adds a filter function and
+   is not lazy."
+  [branch? children keep? root]
+  ;; This seems to be the bottleneck of the whole program so
+  ;; why not use an ArrayList to give it an extra boost
+  (let [res (java.util.ArrayList.)
+        walk (fn walk [node]
+               (if (keep? node) (.add res node))
+               (when (branch? node)
+                 (doseq [x (children node)] (walk x))))]
+    (walk root)
+    (seq res)))
 
 (defn ops-of
   [op-name ast]
-  (->> ast
-       (tree-seq coll? #(if (map? %) (vals %) %))
-       (filter (comp #{op-name} :op))))
+  (filtered-tree-seq coll?
+                     #(if (map? %) (vals %) %)
+                     #(= op-name (:op %))
+                     ast))
 
 (defn usages
   [filename]
@@ -19,7 +34,7 @@
                    (take-while identity))
 
         defs (->> forms
-                  (map clojure.tools.analyzer/analyze-form)
+                  (map a/analyze-form)
                   (ops-of :def))]
     ;; TODO: this should silently fail on
     ;; (let [x (foo)] (def bar x))
