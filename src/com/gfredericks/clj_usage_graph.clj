@@ -90,6 +90,7 @@
                     keys
                     (filter (comp #{%} namespace)))]
     (println "digraph G {")
+    (println "rankdir=\"LR\";")
     (println "fontname=\"monospace\";")
     (println "node[fontname=\"monospace\"];")
     (doseq [ns namespaces]
