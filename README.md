@@ -4,11 +4,10 @@ A Clojure library that emits usage diagrams for your project.
 
 ## Caveats
 
-1. It will eval (because `jvm.tools.analyzer` does) all the source
-   files you give it, so beware of any top-level side-effects.
+1. It will load all the source files you give it, so beware of any top-level side-effects.
 2. It doesn't reflect macro usage at all. Any macros in your project
    will appear unused, as only the expanded code is analyzed.
-3. It's not totally correct. Of course.
+3. It's probably not totally correct? Of course.
 
 ## Usage
 
