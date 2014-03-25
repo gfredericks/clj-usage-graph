@@ -2,6 +2,8 @@
 
 A Clojure library that emits usage diagrams for your project.
 
+![Example](g.svg)
+
 ## Caveats
 
 1. It will load all the source files you give it, so beware of any top-level side-effects.
