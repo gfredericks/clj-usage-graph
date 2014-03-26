@@ -13,11 +13,10 @@
                    (->> (format "_%d_"))))))
 
 (defn generate
-  "Given a map from vars to sets of vars, prints the graphviz output."
+  "Given a map from fully-qualified symbols to sets of fully qualified
+  symbols, prints the graphviz output."
   [m]
-  (let [namespace #(str (.ns %))
-        name #(str (.sym %))
-        id (fn [v]
+  (let [id (fn [v]
              (munge (str (namespace v) \. (name v))))
         namespaces (->> (keys m)
                         (map namespace)
