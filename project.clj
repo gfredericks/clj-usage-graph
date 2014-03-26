@@ -6,4 +6,7 @@
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [com.datomic/datomic-free "0.9.4699"]
                  [org.clojure/tools.analyzer.jvm "0.1.0-beta8"]]
+
+  :jvm-opts ["-Xmx1g"]
+
   :profiles {:dev {:source-paths ["dev"]}})
