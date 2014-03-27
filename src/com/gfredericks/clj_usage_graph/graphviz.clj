@@ -1,5 +1,6 @@
 (ns com.gfredericks.clj-usage-graph.graphviz
   "Generating graphviz output from a usage graph."
+  (:refer-clojure :exclude [munge])
   (:require [clojure.string :as s]))
 
 (defn munge
