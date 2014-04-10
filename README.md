@@ -2,7 +2,7 @@
 
 A Clojure library that emits usage diagrams for your project.
 
-![Example](g.svg)
+![Example](g.png)
 
 ## Caveats
 
