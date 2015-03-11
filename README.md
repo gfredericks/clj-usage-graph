@@ -11,13 +11,18 @@ A Clojure library that emits usage diagrams for your project.
    will appear unused, as only the expanded code is analyzed.
 3. It's probably not totally correct? Of course.
 
+## Obtention
+
+Leiningen coordinates:
+
+``` clojure
+[com.gfredericks/clj-usage-graph "0.1.3"]
+```
+
 ## Usage
 
 Make sure you have graphviz installed and thus the `dot` command
-available.
-
-Add `[com.gfredericks/clj-usage-graph "0.1.3"]` to your deps somehow
-and then:
+available; then:
 
 ```
 find src -type f | \
