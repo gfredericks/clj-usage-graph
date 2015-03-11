@@ -18,8 +18,8 @@
   "Returns a map from vars to sets of vars"
   [filename]
   (let [[ns-form & ns-forms] (forms filename)
-        _ (and (assert (= 'ns (first ns-form)))
-               (eval ns-form)) ;; ensure the ns is created
+        _ (do (assert (= 'ns (first ns-form)))
+              (eval ns-form)) ;; ensure the ns is created
         the-ns-sym (second ns-form)
         env (assoc (a/empty-env)
               :ns the-ns-sym)]
