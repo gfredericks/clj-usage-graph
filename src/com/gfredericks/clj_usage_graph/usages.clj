@@ -2,16 +2,8 @@
   "Functions for determining usages."
   (:require [clojure.java.io :as io]
             [clojure.set :refer [intersection]]
-            [clojure.tools.analyzer.jvm :as a]))
-
-(def nodes
-  (partial tree-seq
-           #(and (map? %) (contains? % :children))
-           ;; some children are collections of nodes
-           #(for [child-name (:children %)
-                  :let [x (get % child-name)]
-                  y (if (map? x) [x] x)]
-              y)))
+            [clojure.tools.analyzer.jvm :as a]
+            [clojure.tools.analyzer.ast :refer [nodes]]))
 
 (defn forms
   "Reads all the forms in a file."
@@ -25,14 +17,15 @@
 (defn usages
   "Returns a map from vars to sets of vars"
   [filename]
-  (let [[ns-form :as the-forms] (forms filename)
-        _ (assert (= 'ns (first ns-form)))
+  (let [[ns-form & ns-forms] (forms filename)
+        _ (and (assert (= 'ns (first ns-form)))
+               (eval ns-form)) ;; ensure the ns is created
         the-ns-sym (second ns-form)
         env (assoc (a/empty-env)
               :ns the-ns-sym)]
     (into {}
-          (for [form (forms filename)
-                :let [tree (a/analyze form env)]
+          (for [form ns-forms
+                :let [tree (a/analyze+eval form env)]
                 {:keys [op var] :as def} (nodes tree)
                 :when (= :def op)]
             [var (-> (nodes def)
