@@ -1,4 +1,4 @@
-(defproject com.gfredericks/clj-usage-graph "0.2.1"
+(defproject com.gfredericks/clj-usage-graph "0.2.2-SNAPSHOT"
   :description "Haxy usage-graph generation code for Clojure projects"
   :url "https://github.com/fredericksgary/clj-usage-graph"
   :license {:name "Eclipse Public License"
