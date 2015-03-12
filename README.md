@@ -9,8 +9,7 @@ A Clojure library that emits usage diagrams for your project.
 1. It will load all the source files you give it, so beware of any top-level side-effects.
 2. It doesn't reflect macro usage at all. Any macros in your project
    will appear unused, as only the expanded code is analyzed.
-3. There are some sorts of code it doesn't work on, which is either a problem with the
-   analyzer lib or this lib's use of it; either way I'd like all such things fixed.
+3. Needs better support for top level effects, protocols, and records.
 
 ## Obtention
 
