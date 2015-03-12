@@ -17,12 +17,6 @@
 (defn generate
   "Given files to analyze, prints a graph file for DOT."
   [& filenames]
-
-  ;; I don't understand tools.analyzer well enough to know if loading
-  ;; the files here is necessary, but the current code doesn't work
-  ;; otherwise
-  (doseq [f filenames] (load-file f))
-
   (let [m (all-internal-usages filenames)
         namespace #(str (.ns %))
         name #(str (.sym %))

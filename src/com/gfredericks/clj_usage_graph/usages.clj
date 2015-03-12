@@ -5,33 +5,37 @@
             [clojure.tools.analyzer.jvm :as a]
             [clojure.tools.analyzer.ast :refer [nodes]]))
 
-(defn forms
-  "Reads all the forms in a file."
-  [filename]
-  (with-open [r (io/reader filename)
-              pbr (java.io.PushbackReader. r)]
-    (->> (repeatedly #(read pbr false nil))
-         (take-while identity)
-         (doall))))
-
 (defn usages
   "Returns a map from vars to sets of vars"
   [filename]
-  (let [[ns-form & ns-forms] (forms filename)
-        _ (do (assert (= 'ns (first ns-form)))
-              (eval ns-form)) ;; ensure the ns is created
-        the-ns-sym (second ns-form)
-        env (assoc (a/empty-env)
-              :ns the-ns-sym)]
-    (into {}
-          (for [form ns-forms
-                :let [tree (a/analyze+eval form env)]
-                {:keys [op var] :as def} (nodes tree)
-                :when (= :def op)]
-            [var (-> (nodes def)
-                     (->> (keep :var))
-                     (set)
-                     (disj var))]))))
+  (binding [*ns* *ns*]
+    (with-open [r (io/reader filename)
+                pbr (java.io.PushbackReader. r)]
+      (let [ns-form (read pbr false ::empty)]
+        (if (= ::empty ns-form)
+          {}
+          (if (not (and (seq? ns-form)
+                        (= 'ns (first ns-form))
+                        (symbol? (second ns-form))))
+            (throw (ex-info "Bad ns-form!" {:form ns-form}))
+            (let [the-ns-sym (second ns-form)
+                  env (assoc (a/empty-env)
+                        :ns the-ns-sym)]
+              (eval ns-form)
+              (loop [out {}]
+                (let [next-form (read pbr false ::empty)]
+                  (if (= ::empty next-form)
+                    out
+                    (let [tree (a/analyze+eval next-form env)
+                          usages
+                          (->> (nodes tree)
+                               (filter #(= :def (:op %)))
+                               (map (fn [{:keys [op var] :as def}]
+                                      [var (-> (nodes def)
+                                               (->> (keep :var))
+                                               (set)
+                                               (disj var))])))]
+                      (recur (into out usages)))))))))))))
 
 (defn remove-external-vars
   "Given a map from vars to sets of vars, removes from the sets any
