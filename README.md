@@ -17,7 +17,7 @@ A Clojure library that emits usage diagrams for your project.
 Leiningen coordinates:
 
 ``` clojure
-[com.gfredericks/clj-usage-graph "0.2.1"]
+[com.gfredericks/clj-usage-graph "0.3.0"]
 ```
 
 ## User Profile Setup
@@ -40,7 +40,7 @@ and calling the appropriate functions, but I like this setup in my
  ;; actually using clj-usage-graph
  :clj-usage-graph
  {... :dependencies [...
-                     [com.gfredericks/clj-usage-graph "0.2.1"]]}
+                     [com.gfredericks/clj-usage-graph "0.3.0"]]}
 ```
 
 ## Usage
