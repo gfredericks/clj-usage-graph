@@ -56,7 +56,7 @@ xargs lein var-graph | \
 dot -Tsvg -o g.svg
 ```
 
-### Namespace Usage Graphs
+### Namespace Dependency Graphs
 
 ```
 find src -type f | \
