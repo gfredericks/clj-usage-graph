@@ -2,7 +2,7 @@
 
 A Clojure library that emits usage diagrams for your project.
 
-![Example](g.svg)
+![Example](g.png)
 
 ## Caveats
 
@@ -51,7 +51,7 @@ available.
 ### Var Usage Graphs
 
 ```
-find src -type f | \
+find src -type f -name '*.clj' | \
 xargs lein run -m com.gfredericks.clj-usage-graph/generate | \
 dot -Tsvg -o g.svg
 ```
