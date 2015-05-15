@@ -46,17 +46,23 @@ and calling the appropriate functions, but I like this setup in my
 ## Usage
 
 Make sure you have graphviz installed and thus the `dot` command
-available.
+available. The following examples use the aliases defined above.
 
 ### Var Usage Graphs
 
 ```
 find src -type f | \
-xargs lein run -m com.gfredericks.clj-usage-graph/generate | \
+xargs lein var-graph | \
 dot -Tsvg -o g.svg
 ```
 
-###
+### Namespace Usage Graphs
+
+```
+find src -type f | \
+xargs lein namespace-graph | \
+dot -Tsvg -o g.svg
+```
 
 ## License
 
