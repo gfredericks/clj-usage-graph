@@ -16,7 +16,7 @@
                    int
                    (->> (format "_%d_"))))))
 
-(defn generate
+(defn var-graph
   "Given files to analyze, prints a graph file for DOT."
   [& filenames]
   (let [m (all-internal-usages filenames)
@@ -43,7 +43,7 @@
       (printf "%s -> %s;\n" (id v) (id v')))
     (println "}")))
 
-(defn generate-namespace-graph
+(defn namespace-graph
   [& filenames]
   (let [names&deps (for [filename filenames
                          :let [decl (-> filename
