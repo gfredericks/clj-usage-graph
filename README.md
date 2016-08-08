@@ -30,10 +30,10 @@ and calling the appropriate functions, but I like this setup in my
 {:user
  {...
   :aliases {"var-graph"
-            ["with-profile" "+clj-usage-graph" "lein" "run"
+            ["with-profile" "+clj-usage-graph" "run"
              "-m" "com.gfredericks.clj-usage-graph/var-graph"]
             "namespace-graph"
-            ["with-profile" "+clj-usage-graph" "lein" "run"
+            ["with-profile" "+clj-usage-graph" "run"
              "-m" "com.gfredericks.clj-usage-graph/namespace-graph"]}}
 
  ;; separate profile so that we only have these deps when we're
